@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,17 @@ public class ListaSprawdzianowActivity extends AppCompatActivity {
     Button bWroc;
     List<SprawdzianTabela> listaSprawdzianow;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+            Intent intent = new Intent(getApplicationContext(), AdminPanelActivity.class);
+            finish();
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +89,6 @@ public class ListaSprawdzianowActivity extends AppCompatActivity {
     }
 
 
-
     private class SprawdzianyAdapter extends BaseAdapter {
 
         @Override
@@ -106,8 +116,8 @@ public class ListaSprawdzianowActivity extends AppCompatActivity {
             if (convertView == null) {
                 holder = new ViewHolder();
                 LayoutInflater inflater = ListaSprawdzianowActivity.this.getLayoutInflater();
-                convertView = inflater.inflate(R.layout.oceny_uzytkownika_list, null);
-                holder.textView = (TextView) convertView.findViewById(R.id.sprawdzian);
+                convertView = inflater.inflate(R.layout.lista_sprawdzianow_list, null);
+                holder.textView = (TextView) convertView.findViewById(R.id.tvSprawdzian);
 
 
                 convertView.setTag(holder);

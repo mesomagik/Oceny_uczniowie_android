@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,18 @@ public class EdytujSprawdzianActivity extends AppCompatActivity {
     DatabaseHelper db;
     List<OcenaTabela> oceny;
     List<UzytkownikTabela> listaUzytkownik;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(getApplicationContext(), ListaSprawdzianowActivity.class);
+            finish();
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +143,8 @@ public class EdytujSprawdzianActivity extends AppCompatActivity {
                 holder = new ViewHolder();
                 LayoutInflater inflater = EdytujSprawdzianActivity.this.getLayoutInflater();
                 convertView = inflater.inflate(R.layout.oceny_uzytkownika_list,null);
-                holder.textView = (TextView) convertView.findViewById(R.id.sprawdzian);
+                holder.tvImie = (TextView) convertView.findViewById(R.id.tvImie);
+                holder.tvOcena = (TextView) convertView.findViewById(R.id.tvOcena);
 
 
                 convertView.setTag(holder);
@@ -138,13 +152,15 @@ public class EdytujSprawdzianActivity extends AppCompatActivity {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.ref = position;
-            holder.textView.setText(listaUzytkownik.get(position).getImie()+" "+listaUzytkownik.get(position).getNazwisko() + " "+oceny.get(position).getOcena());
+            holder.tvImie.setText(listaUzytkownik.get(position).getImie()+" "+listaUzytkownik.get(position).getNazwisko() );
+            holder.tvOcena.setText(String.valueOf(oceny.get(position).getOcena()));
 
             return convertView;
         }
 
         private class ViewHolder {
-            TextView textView;
+            TextView tvImie;
+            TextView tvOcena;
             int ref;
         }
     }

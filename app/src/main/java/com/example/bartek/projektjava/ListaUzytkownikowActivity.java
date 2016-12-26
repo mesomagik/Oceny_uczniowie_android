@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 
 import java.util.List;
@@ -31,13 +31,24 @@ public class ListaUzytkownikowActivity extends AppCompatActivity {
     List<UzytkownikTabela> listaUzytkownikow;
     UzytkownikTabela wybranyUzytkownik;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(getApplicationContext(), AdminPanelActivity.class);
+            finish();
+            startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_uzytkownikow);
 
-        lvUzytkownicy= (ListView) findViewById(R.id.lvUzytkownicy);
+        lvUzytkownicy = (ListView) findViewById(R.id.lvUzytkownicy);
         bWroc = (Button) findViewById(R.id.bWroc);
         bEdytuj = (Button) findViewById(R.id.bEdytuj);
 
@@ -45,7 +56,7 @@ public class ListaUzytkownikowActivity extends AppCompatActivity {
 
         listaUzytkownikow = db.getAllUser();
 
-        wybranyUzytkownik = new UzytkownikTabela("0","0","0","0");
+        wybranyUzytkownik = new UzytkownikTabela("0", "0", "0", "0");
         final SprawdzianyAdapter adapter = new SprawdzianyAdapter();
         lvUzytkownicy.setAdapter(adapter);
         db.close();
@@ -73,8 +84,8 @@ public class ListaUzytkownikowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (wybranyUzytkownik.getNazwisko().compareTo("0") > 0) {
-                    Intent intent1 = new Intent(getApplicationContext(),EdytujUzytkownikaActivity.class);
-                    intent1.putExtra("uzytkownik",wybranyUzytkownik);
+                    Intent intent1 = new Intent(getApplicationContext(), EdytujUzytkownikaActivity.class);
+                    intent1.putExtra("uzytkownik", wybranyUzytkownik);
                     finish();
                     startActivity(intent1);
 
@@ -122,8 +133,8 @@ public class ListaUzytkownikowActivity extends AppCompatActivity {
             if (convertView == null) {
                 holder = new ViewHolder();
                 LayoutInflater inflater = ListaUzytkownikowActivity.this.getLayoutInflater();
-                convertView = inflater.inflate(R.layout.oceny_uzytkownika_list, null);
-                holder.textView = (TextView) convertView.findViewById(R.id.sprawdzian);
+                convertView = inflater.inflate(R.layout.lista_sprawdzianow_list, null);
+                holder.textView = (TextView) convertView.findViewById(R.id.tvSprawdzian);
 
 
                 convertView.setTag(holder);
@@ -133,7 +144,7 @@ public class ListaUzytkownikowActivity extends AppCompatActivity {
             holder.ref = position;
 
 
-            holder.textView.setText(listaUzytkownikow.get(position).getNazwisko() +" " +listaUzytkownikow.get(position).getImie());
+            holder.textView.setText(listaUzytkownikow.get(position).getNazwisko() + " " + listaUzytkownikow.get(position).getImie());
 
 
             return convertView;

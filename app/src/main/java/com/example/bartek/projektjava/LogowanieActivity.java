@@ -23,14 +23,13 @@ public class LogowanieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logowanie);
 
         db = new DatabaseHelper(getApplicationContext());
-
-        /*
+/*
         UzytkownikTabela check_admin = db.getUserById(1);
         if(check_admin.getLogin().toString().compareTo("-1")==0 ){
             Log.e("login",check_admin.getLogin().toString() );
             db.createUzytkownik(new UzytkownikTabela("admin","admin","admin","admin"));
         }
-        */
+*/
 
         uzytkownik =  new UzytkownikTabela("0","0","0","0");
 

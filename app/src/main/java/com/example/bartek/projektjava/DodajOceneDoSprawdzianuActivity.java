@@ -3,6 +3,7 @@ package com.example.bartek.projektjava;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,20 @@ public class DodajOceneDoSprawdzianuActivity extends AppCompatActivity {
     private Intent intent;
     private List<UzytkownikTabela> listaUzytkownikow;
     private UzytkownikTabela wybranyUzytkownik;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent1 = new Intent(getApplicationContext(), EdytujSprawdzianActivity.class);
+            intent1.putExtra("Sprawdzian_id", intent.getStringExtra("sprawdzian_id"));
+            intent1.putExtra("Sprawdzian_nazwa", intent.getStringExtra("sprawdzian_nazwa"));
+            finish();
+            startActivity(intent1);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +133,8 @@ public class DodajOceneDoSprawdzianuActivity extends AppCompatActivity {
             if(convertView == null){
                 holder = new ViewHolder();
                 LayoutInflater inflater = DodajOceneDoSprawdzianuActivity.this.getLayoutInflater();
-                convertView = inflater.inflate(R.layout.oceny_uzytkownika_list,null);
-                holder.textView = (TextView) convertView.findViewById(R.id.sprawdzian);
+                convertView = inflater.inflate(R.layout.lista_sprawdzianow_list,null);
+                holder.textView = (TextView) convertView.findViewById(R.id.tvSprawdzian);
 
 
                 convertView.setTag(holder);

@@ -96,7 +96,8 @@ public class OcenyUzytkownikaActivity extends AppCompatActivity {
                 holder = new ViewHolder();
                 LayoutInflater inflater = OcenyUzytkownikaActivity.this.getLayoutInflater();
                 convertView = inflater.inflate(R.layout.oceny_uzytkownika_list,null);
-                holder.textView = (TextView) convertView.findViewById(R.id.sprawdzian);
+                holder.tvImie = (TextView) convertView.findViewById(R.id.tvImie);
+                holder.tvOcena = (TextView) convertView.findViewById(R.id.tvOcena);
 
 
                 convertView.setTag(holder);
@@ -106,14 +107,16 @@ public class OcenyUzytkownikaActivity extends AppCompatActivity {
             holder.ref = position;
 
 
-            holder.textView.setText(listaSprawdzianów.get(position).getNazwaSprawdzianu() + " " + ocenySprawdzianow.get(position));
+            holder.tvImie.setText(listaSprawdzianów.get(position).getNazwaSprawdzianu());
+            holder.tvOcena.setText(ocenySprawdzianow.get(position));
 
 
             return convertView;
         }
 
         private class ViewHolder {
-            TextView textView;
+            TextView tvImie;
+            TextView tvOcena;
             int ref;
         }
     }

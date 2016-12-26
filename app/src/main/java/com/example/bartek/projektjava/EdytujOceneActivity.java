@@ -3,6 +3,7 @@ package com.example.bartek.projektjava;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,20 @@ public class EdytujOceneActivity extends AppCompatActivity {
     EditText etOcena;
     DatabaseHelper db;
     Intent intent;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent1 = new Intent(getApplicationContext(), EdytujSprawdzianActivity.class);
+            intent1.putExtra("Sprawdzian_id", intent.getStringExtra("sprawdzian_id"));
+            intent1.putExtra("Sprawdzian_nazwa", intent.getStringExtra("sprawdzian_nazwa"));
+            finish();
+            startActivity(intent1);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
